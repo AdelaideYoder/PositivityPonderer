@@ -26,5 +26,11 @@ namespace Ponderer.Models
         public string Email { get; set; }
 
         public string Password { get; set; }
+
+        public virtual ICollection<Quote> Quotes { get; set; }
+
+        public virtual ICollection<Lyric> Lyrics { get; set; }
+
+        public virtual ICollection<Mantra> Mantras { get; set; }
     }
 }
