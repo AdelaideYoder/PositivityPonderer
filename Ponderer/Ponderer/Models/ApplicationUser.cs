@@ -4,11 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Ponderer.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+
+        }
+
         [Key]
         public int ApplicationUserId { get; set; }
 
