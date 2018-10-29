@@ -26,8 +26,6 @@ namespace Ponderer.Models
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";
 
-        public string Email { get; set; }
-
         public string Password { get; set; }
 
         public virtual ICollection<Quote> Quotes { get; set; }

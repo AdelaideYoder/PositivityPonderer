@@ -11,7 +11,11 @@ namespace Ponderer.Models
         [Key]
         public int LyricId { get; set; }
 
+        [Display(Name = "Music Lyrics")]
         public string MusicLyric { get; set; }
+
+        [Display(Name = "Song Title")]
+        public string SongTitle { get; set; }
 
         public string Artist { get; set; }
 

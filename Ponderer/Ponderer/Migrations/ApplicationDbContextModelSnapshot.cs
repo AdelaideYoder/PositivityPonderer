@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ponderer.Data;
 
-namespace Ponderer.Data.Migrations
+namespace Ponderer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181029184737_addedModels")]
-    partial class addedModels
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,6 +73,9 @@ namespace Ponderer.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -114,6 +115,8 @@ namespace Ponderer.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -186,6 +189,85 @@ namespace Ponderer.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Ponderer.Models.Lyric", b =>
+                {
+                    b.Property<int>("LyricId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
+
+                    b.Property<string>("Artist");
+
+                    b.Property<string>("MusicLyric");
+
+                    b.Property<string>("SongTitle");
+
+                    b.HasKey("LyricId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Lyrics");
+                });
+
+            modelBuilder.Entity("Ponderer.Models.Mantra", b =>
+                {
+                    b.Property<int>("MantraId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
+
+                    b.Property<string>("MorningMantra");
+
+                    b.Property<string>("PlaceFound");
+
+                    b.HasKey("MantraId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Mantras");
+                });
+
+            modelBuilder.Entity("Ponderer.Models.Quote", b =>
+                {
+                    b.Property<int>("QuoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
+
+                    b.Property<string>("Author");
+
+                    b.Property<string>("InspirationalQuote");
+
+                    b.HasKey("QuoteId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Quotes");
+                });
+
+            modelBuilder.Entity("Ponderer.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("Password");
+
+                    b.ToTable("ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -228,6 +310,30 @@ namespace Ponderer.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Ponderer.Models.Lyric", b =>
+                {
+                    b.HasOne("Ponderer.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Lyrics")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Ponderer.Models.Mantra", b =>
+                {
+                    b.HasOne("Ponderer.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Mantras")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Ponderer.Models.Quote", b =>
+                {
+                    b.HasOne("Ponderer.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Quotes")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Ponderer.Models.Lyric>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MusicLyric)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SongTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MusicLyric)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SongTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artist)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LyricId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LyricId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LyricId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
