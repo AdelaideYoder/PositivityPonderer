@@ -15,9 +15,6 @@ namespace Ponderer.Models
 
         }
 
-        [Key]
-        public int ApplicationUserId { get; set; }
-
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
