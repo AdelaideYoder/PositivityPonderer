@@ -11,8 +11,10 @@ namespace Ponderer.Models
         [Key]
         public int QuoteId { get; set; }
 
+        [Display(Name = "Inspirational Quotes")]
         public string InspirationalQuote { get; set; }
 
+        [Display(Name = "Author")]
         public string Author { get; set; }
 
         [Required]

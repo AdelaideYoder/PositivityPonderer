@@ -1,4 +1,4 @@
-﻿@model Ponderer.Models.Quote
+﻿@model Ponderer.ViewModels.QuoteCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,18 +13,18 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="InspirationalQuote" class="control-label"></label>
-                <input asp-for="InspirationalQuote" class="form-control" />
-                <span asp-validation-for="InspirationalQuote" class="text-danger"></span>
+                <label asp-for="Quote.InspirationalQuote" class="control-label"></label>
+                <input asp-for="Quote.InspirationalQuote" class="form-control" />
+                <span asp-validation-for="Quote.InspirationalQuote" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
+                <label asp-for="Quote.Author" class="control-label"></label>
+                <input asp-for="Quote.Author" class="form-control" />
+                <span asp-validation-for="Quote.Author" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ApplicationUserId" class="control-label"></label>
-                <select asp-for="ApplicationUserId" class ="form-control" asp-items="ViewBag.ApplicationUserId"></select>
+                <label asp-for="Quote.ApplicationUserId" class="control-label"></label>
+                <select asp-for="Quote.ApplicationUserId" class ="form-control" asp-items="ViewBag.ApplicationUserId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

@@ -2,28 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ponderer.Data;
 using Ponderer.Models;
+using Ponderer.ViewModels;
 
 namespace Ponderer.Controllers
 {
     public class QuotesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _context;
 
-        public QuotesController(ApplicationDbContext context)
+        public UserManager<ApplicationUser> _userManager { get; }
+
+        public QuotesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            {
+                _context = context;
+                _userManager = userManager;
+            }
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Quotes
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Quotes.Include(q => q.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
+            ApplicationUser user = await GetCurrentUserAsync();
+            QuoteIndexViewModel model = new QuoteIndexViewModel(_context);
+
+            model.Quotes = await _context.Quotes.Where(quote => quote.ApplicationUserId == user.Id).ToListAsync();
+            return View(model);
+
+            //var applicationDbContext = _context.Quotes.Include(m => m.ApplicationUser);
+            //return View(await applicationDbContext.ToListAsync());
+
+            ////QuoteIndexViewModel quoteIndexViewModel = new QuoteIndexViewModel(_context.Quotes);
+            ////return View(await quoteIndexViewModel);
         }
 
         // GET: Quotes/Details/5
@@ -49,7 +68,10 @@ namespace Ponderer.Controllers
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id");
-            return View();
+
+
+            QuoteCreateViewModel quoteCreateViewModel = new QuoteCreateViewModel(_context);
+            return View(quoteCreateViewModel);
         }
 
         // POST: Quotes/Create
@@ -65,8 +87,11 @@ namespace Ponderer.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", quote.ApplicationUserId);
-            return View(quote);
+            //ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", quote.ApplicationUserId);
+            QuoteCreateViewModel quoteCreateViewModel = new QuoteCreateViewModel(_context);
+            quoteCreateViewModel.Quote = quote;
+            return View(quoteCreateViewModel);
+
         }
 
         // GET: Quotes/Edit/5

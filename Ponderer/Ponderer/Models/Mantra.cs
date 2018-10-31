@@ -11,8 +11,10 @@ namespace Ponderer.Models
         [Key]
         public int MantraId { get; set; }
 
+        [Display(Name = "Mantras")]
         public string MorningMantra { get; set; }
 
+        [Display(Name = "Place Found")]
         public string PlaceFound { get; set; }
 
         [Required]

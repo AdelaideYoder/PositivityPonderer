@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Ponderer.Models.Quote>
+﻿@model Ponderer.ViewModels.QuoteIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,35 +13,36 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.InspirationalQuote)
+                @Html.DisplayNameFor(model => model.Quote.InspirationalQuote)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                @Html.DisplayNameFor(model => model.Quote.Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                @Html.DisplayNameFor(model => model.Quote.ApplicationUser)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InspirationalQuote)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.QuoteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.QuoteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.QuoteId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Quotes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InspirationalQuote)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.QuoteId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.QuoteId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.QuoteId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
