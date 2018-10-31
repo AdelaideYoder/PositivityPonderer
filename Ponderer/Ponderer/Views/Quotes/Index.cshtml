@@ -18,9 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Quote.Author)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Quote.ApplicationUser)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -34,9 +34,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Author)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
-                </td>
+                </td>*@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.QuoteId">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.QuoteId">Details</a> |

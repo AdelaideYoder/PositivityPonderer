@@ -11,6 +11,12 @@ namespace Ponderer.ViewModels
     {
         public Quote Quote { get; set; }
 
+        public int QuoteId { get; set; }
+
+        public string ApplicationUserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
+
         private ApplicationDbContext _context;
 
         public QuoteCreateViewModel(ApplicationDbContext context)

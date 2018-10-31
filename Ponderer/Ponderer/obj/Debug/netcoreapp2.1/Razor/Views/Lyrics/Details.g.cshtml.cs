@@ -144,7 +144,7 @@ using Ponderer.Models;
             WriteLiteral("\r\n        </dd>\r\n    </dl>\r\n</div>\r\n<div>\r\n    ");
             EndContext();
             BeginContext(905, 59, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5568ba5610c470ea03c96a2012283ce", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7b698b48e0074867b46f348645a18bd4", async() => {
                 BeginContext(956, 4, true);
                 WriteLiteral("Edit");
                 EndContext();
@@ -179,7 +179,7 @@ using Ponderer.Models;
             WriteLiteral(" |\r\n    ");
             EndContext();
             BeginContext(972, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e82dcb6821e64ab68b228b1358d8b642", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1683fbfccf554a4495c1cae6b8e47a1d", async() => {
                 BeginContext(994, 12, true);
                 WriteLiteral("Back to List");
                 EndContext();

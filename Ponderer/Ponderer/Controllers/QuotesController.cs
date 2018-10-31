@@ -83,11 +83,14 @@ namespace Ponderer.Controllers
         {
             if (ModelState.IsValid)
             {
+                ApplicationUser user = await GetCurrentUserAsync();
+                quote.ApplicationUserId = user.Id;
                 _context.Add(quote);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", quote.ApplicationUserId);
+
             QuoteCreateViewModel quoteCreateViewModel = new QuoteCreateViewModel(_context);
             quoteCreateViewModel.Quote = quote;
             return View(quoteCreateViewModel);
